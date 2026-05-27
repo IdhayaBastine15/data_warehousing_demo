@@ -1,0 +1,27 @@
+# Core pipeline
+pyspark==3.5.1
+pandas==2.1.4
+numpy==1.26.4
+
+# Statistical engine
+scipy==1.12.0
+
+# Database
+sqlalchemy==2.0.30
+psycopg2-binary==2.9.9
+
+# REST API
+fastapi==0.111.0
+uvicorn[standard]==0.30.0
+pydantic==2.7.1
+
+# Orchestration
+dagster==1.7.6
+dagster-pandas==0.23.6
+
+# Dashboard
+streamlit==1.35.0
+plotly==5.22.0
+
+# Utilities
+openpyxl==3.1.2

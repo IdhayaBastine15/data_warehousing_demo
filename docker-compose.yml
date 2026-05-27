@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER:     dap
+      POSTGRES_PASSWORD: dap
+      POSTGRES_DB:       dap
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test:     ["CMD-SHELL", "pg_isready -U dap"]
+      interval: 5s
+      timeout:  5s
+      retries:  5
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL:   postgresql://dap:dap@postgres:5432/dap
+      SOURCE_PATH:    cost_of_living_us_dap2.xls
+      STAGING_PATH:   /tmp/data/staging
+      PROCESSED_PATH: /tmp/data/processed
+    volumes:
+      - .:/app
+
+  dashboard:
+    build: .
+    command: streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://dap:dap@postgres:5432/dap
+    volumes:
+      - .:/app
+
+volumes:
+  postgres_data:
