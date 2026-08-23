@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Data Warehousing Demo
 
 A demonstration ETL (Extract, Transform, Load) pipeline that ingests cost of living, unemployment, and quality of life data from multiple sources into a PostgreSQL data warehouse using Dagster for orchestration.
@@ -355,4 +355,3 @@ The raw file is a CSV exported with an `.xls` extension (common in older governm
 | `PROCESSED_PATH` | `data/processed` | Parquet processed zone (partitioned by region) |
 
 For local demo, `DATABASE_URL` is automatically set to `sqlite:///cost_of_living_demo.db` by `run_demo.py`.
->>>>>>> origin/develop_large
